@@ -15,7 +15,7 @@
 #
 #common CMakeList.txt to build CCL, ATL, tests
 
-cmake_minimum_required (VERSION 3.20)
+cmake_minimum_required (VERSION 2.8)
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
@@ -62,6 +62,7 @@ endif()
 
 option(BUILD_EXAMPLES "Build examples" TRUE)
 option(BUILD_FT "Build functional tests" TRUE)
+option(BUILD_REG_TESTS "Build regression tests" TRUE)
 option(BUILD_CONFIG "Build cmake configs" TRUE)
 option(ENABLE_MPI "Enable MPI support" TRUE)
 option(ENABLE_MPI_TESTS "Enable MPI tests support" TRUE)
@@ -335,7 +336,7 @@ endif()
 
 set(CCL_MAJOR_VERSION     "2021")
 set(CCL_MINOR_VERSION     "15")
-set(CCL_UPDATE_VERSION    "6")
+set(CCL_UPDATE_VERSION    "7")
 set(CCL_PRODUCT_STATUS    "Gold")
 string(TIMESTAMP CCL_PRODUCT_BUILD_DATE "%Y-%m-%dT %H:%M:%SZ")
 get_vcs_properties("git")
@@ -377,5 +378,8 @@ if (ENABLE_MPI_TESTS)
     endif()
     if (BUILD_FT)
         add_subdirectory(tests/functional)
+    endif()
+    if (BUILD_REG_TESTS)
+        add_subdirectory(tests/reg_tests)
     endif()
 endif()
